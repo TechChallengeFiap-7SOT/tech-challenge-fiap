@@ -1,4 +1,4 @@
-package br.com.fiap.soat7.grupo18.lanchonete.infrastructure.config;
+package br.com.fiap.soat7.grupo18.lanchonete.config;
 
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,6 @@
 package br.com.fiap.soat7.grupo18.lanchonete.core.entity;
 
-import br.com.fiap.soat7.grupo18.lanchonete.infrastructure.exception.DomainEntityException;
+import br.com.fiap.soat7.grupo18.lanchonete.external.infra.exception.DomainEntityException;
 
 public class Categoria {
 
