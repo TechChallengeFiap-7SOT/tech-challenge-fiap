@@ -1,4 +1,4 @@
-package br.com.fiap.soat7.grupo18.lanchonete;
+package br.com.fiap.soat7.grupo18.lanchonete.config;
 
 import java.util.Properties;
 
