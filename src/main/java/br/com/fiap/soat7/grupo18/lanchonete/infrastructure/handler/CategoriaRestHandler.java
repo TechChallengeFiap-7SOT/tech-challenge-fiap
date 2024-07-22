@@ -10,6 +10,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Categorias", description = "Categorias de produtos")
 public class CategoriaRestHandler {
 
-    //TODO seguir implementando os gateways e controllers para categoria...
+    //TODO seguir verificando como é o service
 
 }

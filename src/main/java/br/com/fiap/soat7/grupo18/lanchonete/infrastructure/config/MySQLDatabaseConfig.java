@@ -23,7 +23,6 @@ public class MySQLDatabaseConfig implements DatabaseConfig {
     private final static String USER = "user";
     private final static String PASSWD = "password";
     private final static String ORM_ENTITY_PACKAGE = "br.com.fiap.soat7.grupo18.lanchonete.infrastructure.persistence.entity";
-    private final static String PERSISTENCE_UNIT_NAME = "lanchonetePU";
 
 
     @Override

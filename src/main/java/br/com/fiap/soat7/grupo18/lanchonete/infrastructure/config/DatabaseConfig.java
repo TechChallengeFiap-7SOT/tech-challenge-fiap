@@ -9,6 +9,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 public interface DatabaseConfig {
 
+    public final static String PERSISTENCE_UNIT_NAME = "lanchonetePU";
+
     public DataSource dataSource();
     public LocalContainerEntityManagerFactoryBean entityManagerFactory();
     public PlatformTransactionManager transactionManager();
