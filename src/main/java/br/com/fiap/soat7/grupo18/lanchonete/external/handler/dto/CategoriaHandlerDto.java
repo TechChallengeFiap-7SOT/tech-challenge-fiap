@@ -1,4 +1,4 @@
-package br.com.fiap.soat7.grupo18.lanchonete.infrastructure.handler.dto;
+package br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto;
 
 public class CategoriaHandlerDto {
     private Long id;

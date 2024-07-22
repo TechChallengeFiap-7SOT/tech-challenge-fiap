@@ -1,4 +1,4 @@
-package br.com.fiap.soat7.grupo18.lanchonete.infrastructure.persistence.entity;
+package br.com.fiap.soat7.grupo18.lanchonete.external.infra.persistence.entity;
 
 import java.util.List;
 

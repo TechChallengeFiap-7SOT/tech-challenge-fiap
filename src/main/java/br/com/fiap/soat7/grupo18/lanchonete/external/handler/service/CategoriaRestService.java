@@ -1,4 +1,4 @@
-package br.com.fiap.soat7.grupo18.lanchonete.infrastructure.handler.service;
+package br.com.fiap.soat7.grupo18.lanchonete.external.handler.service;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

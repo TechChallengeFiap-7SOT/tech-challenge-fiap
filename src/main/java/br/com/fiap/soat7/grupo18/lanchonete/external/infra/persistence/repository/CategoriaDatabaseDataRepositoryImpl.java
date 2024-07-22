@@ -1,4 +1,4 @@
-package br.com.fiap.soat7.grupo18.lanchonete.infrastructure.persistence.repository;
+package br.com.fiap.soat7.grupo18.lanchonete.external.infra.persistence.repository;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.fiap.soat7.grupo18.lanchonete.core.entity.dto.CategoriaDto;
 import br.com.fiap.soat7.grupo18.lanchonete.core.repository.CategoriaDataRepository;
-import br.com.fiap.soat7.grupo18.lanchonete.infrastructure.persistence.entity.CategoriaEntity;
+import br.com.fiap.soat7.grupo18.lanchonete.external.infra.persistence.entity.CategoriaEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;

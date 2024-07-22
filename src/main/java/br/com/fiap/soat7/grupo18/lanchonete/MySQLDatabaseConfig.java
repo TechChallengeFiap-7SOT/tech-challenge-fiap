@@ -1,4 +1,4 @@
-package br.com.fiap.soat7.grupo18.lanchonete.infrastructure.config;
+package br.com.fiap.soat7.grupo18.lanchonete;
 
 import java.util.Properties;
 
@@ -13,21 +13,16 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-/**
- * Classe apenas ilustrativa, demonstrando que a aplicação está transparente quanto a repositório de dados.
- */
-
 @Configuration
 @EnableTransactionManagement
-@Profile("postgres")
-public class PostgresDatabaseConfig implements DatabaseConfig {
+@Profile("mysql")
+public class MySQLDatabaseConfig implements DatabaseConfig {
 
-    private final static String URL = "";
-    private final static String CLASS_NAME = "org.postgresql.Driver";
-    private final static String USER = "";
-    private final static String PASSWD = "";
+    private final static String URL = "jdbc:mysql://localhost:3306/lanchonete_db?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false";
+    private final static String CLASS_NAME = "com.mysql.cj.jdbc.Driver";
+    private final static String USER = "user";
+    private final static String PASSWD = "password";
     private final static String ORM_ENTITY_PACKAGE = "br.com.fiap.soat7.grupo18.lanchonete.infrastructure.persistence.entity";
-    private final static String PERSISTENCE_UNIT_NAME = "lanchonetePU";
 
 
     @Override
@@ -64,7 +59,7 @@ public class PostgresDatabaseConfig implements DatabaseConfig {
     public Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("spring.jpa.hibernate.ddl-auto", "update");
-        properties.setProperty("spring.jpa.database-platform", "org.hibernate.dialect.PostgreSQLDialect");
+        properties.setProperty("spring.jpa.database-platform", "org.hibernate.dialect.MySQL5InnoDBDialect");
         properties.setProperty("spring.jpa.properties.hibernate.format_sql", "true");
         return properties;
     }

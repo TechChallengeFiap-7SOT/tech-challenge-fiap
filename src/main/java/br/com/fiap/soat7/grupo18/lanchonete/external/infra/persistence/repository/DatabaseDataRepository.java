@@ -1,6 +1,6 @@
-package br.com.fiap.soat7.grupo18.lanchonete.infrastructure.persistence.repository;
+package br.com.fiap.soat7.grupo18.lanchonete.external.infra.persistence.repository;
 
-import br.com.fiap.soat7.grupo18.lanchonete.infrastructure.config.DatabaseConfig;
+import br.com.fiap.soat7.grupo18.lanchonete.DatabaseConfig;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
