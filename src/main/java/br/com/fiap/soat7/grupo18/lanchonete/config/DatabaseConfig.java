@@ -10,6 +10,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 public interface DatabaseConfig {
 
     public final static String PERSISTENCE_UNIT_NAME = "lanchonetePU";
+    public final static String ORM_ENTITY_PACKAGE = "br.com.fiap.soat7.grupo18.lanchonete.external.infra.persistence.entity";
 
     public DataSource dataSource();
     public LocalContainerEntityManagerFactoryBean entityManagerFactory();

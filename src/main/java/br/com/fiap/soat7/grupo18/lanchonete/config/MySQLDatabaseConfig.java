@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -22,7 +23,7 @@ public class MySQLDatabaseConfig implements DatabaseConfig {
     private final static String CLASS_NAME = "com.mysql.cj.jdbc.Driver";
     private final static String USER = "user";
     private final static String PASSWD = "password";
-    private final static String ORM_ENTITY_PACKAGE = "br.com.fiap.soat7.grupo18.lanchonete.infrastructure.persistence.entity";
+    
 
 
     @Override
@@ -44,6 +45,7 @@ public class MySQLDatabaseConfig implements DatabaseConfig {
         em.setDataSource(dataSource());
         em.setPackagesToScan(ORM_ENTITY_PACKAGE);
         em.setJpaProperties(additionalProperties());
+        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setPersistenceUnitName(PERSISTENCE_UNIT_NAME);
         return em;
     }
@@ -59,7 +61,8 @@ public class MySQLDatabaseConfig implements DatabaseConfig {
     public Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("spring.jpa.hibernate.ddl-auto", "update");
-        properties.setProperty("spring.jpa.database-platform", "org.hibernate.dialect.MySQL5InnoDBDialect");
+        properties.setProperty("spring.jpa.database-platform", "org.hibernate.dialect.MySQLDialect");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         properties.setProperty("spring.jpa.properties.hibernate.format_sql", "true");
         return properties;
     }

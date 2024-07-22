@@ -4,6 +4,7 @@ services:
   db:
     image: mysql:5.7
     command: --pid-file=/var/lib/mysql/mysqld.pid
+    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: lanchonete_db
@@ -20,6 +21,7 @@ services:
       retries: 10
 
   app:
+    container_name: app
     build:
       context: .
       dockerfile: Dockerfile
