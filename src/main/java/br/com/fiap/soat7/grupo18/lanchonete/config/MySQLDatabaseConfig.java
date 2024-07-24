@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,11 +20,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Profile("mysql")
 public class MySQLDatabaseConfig implements DatabaseConfig {
 
-    private final static String URL = "jdbc:mysql://localhost:3306/lanchonete_db?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false";
     private final static String CLASS_NAME = "com.mysql.cj.jdbc.Driver";
     private final static String USER = "user";
     private final static String PASSWD = "password";
-    
+
+    @Value("${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/lanchonete_db?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false}")
+    private String urlDatabase;
 
 
     @Override
@@ -32,7 +34,7 @@ public class MySQLDatabaseConfig implements DatabaseConfig {
         return DataSourceBuilder
                 .create()
                 .driverClassName(CLASS_NAME)
-                .url(URL)
+                .url(urlDatabase)
                 .username(USER)
                 .password(PASSWD)
                 .build();
@@ -62,7 +64,6 @@ public class MySQLDatabaseConfig implements DatabaseConfig {
         Properties properties = new Properties();
         properties.setProperty("spring.jpa.hibernate.ddl-auto", "update");
         properties.setProperty("spring.jpa.database-platform", "org.hibernate.dialect.MySQLDialect");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         properties.setProperty("spring.jpa.properties.hibernate.format_sql", "true");
         return properties;
     }

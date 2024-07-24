@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.soat7.grupo18.lanchonete.adapter.controller.CategoriaController;
-import br.com.fiap.soat7.grupo18.lanchonete.core.entity.dto.CategoriaDto;
 import br.com.fiap.soat7.grupo18.lanchonete.core.repository.CategoriaDataRepository;
+import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.CategoriaHandlerResponseDto;
 
 @Service
 public class CategoriaRestService {
@@ -18,7 +18,7 @@ public class CategoriaRestService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    public List<CategoriaDto> findAll(){
+    public List<CategoriaHandlerResponseDto> findAll(){
         return new CategoriaController(categoriaRepository).findAll();
     }
 
