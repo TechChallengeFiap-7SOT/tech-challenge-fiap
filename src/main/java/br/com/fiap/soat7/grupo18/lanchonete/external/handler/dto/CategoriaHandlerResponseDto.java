@@ -1,14 +1,14 @@
 package br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto;
 
-public class CategoriaHandlerDto {
+public class CategoriaHandlerResponseDto {
     private Long id;
     private String nome;
 
     
-    public CategoriaHandlerDto() {
+    public CategoriaHandlerResponseDto() {
     }
 
-    public CategoriaHandlerDto(Long id, String nome) {
+    public CategoriaHandlerResponseDto(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }

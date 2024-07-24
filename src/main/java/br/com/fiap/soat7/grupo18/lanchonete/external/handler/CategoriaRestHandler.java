@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.soat7.grupo18.lanchonete.core.entity.dto.CategoriaDto;
+import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.CategoriaHandlerResponseDto;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.service.CategoriaRestService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -28,8 +28,8 @@ public class CategoriaRestHandler {
 
     @GetMapping
     @Operation(description = "Lista todas as categorias disponíveis")
-    @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content(mediaType = "application/json" , schema = @Schema(implementation = CategoriaDto.class)))
-    public ResponseEntity<List<CategoriaDto>> getAllCategorias() {
+    @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content(mediaType = "application/json" , schema = @Schema(implementation = CategoriaHandlerResponseDto.class)))
+    public ResponseEntity<List<CategoriaHandlerResponseDto>> getAllCategorias() {
         var categorias = categoriaService.findAll();
         return ResponseEntity.ok(categorias);
     }

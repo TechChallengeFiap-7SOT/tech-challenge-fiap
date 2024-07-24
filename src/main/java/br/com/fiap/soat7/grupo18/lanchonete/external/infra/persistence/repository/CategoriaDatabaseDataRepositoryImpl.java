@@ -16,7 +16,7 @@ public class CategoriaDatabaseDataRepositoryImpl extends DatabaseDataRepository 
 
     @Override
     public List<Categoria> findAll() {
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaBuilder cb = getCriteriaBuilder();
         CriteriaQuery<Categoria> query = cb.createQuery(Categoria.class);
         Root<CategoriaEntity> root = query.from(CategoriaEntity.class);
         query.select(cb.construct(Categoria.class, root.get("id"), root.get("nome")));
