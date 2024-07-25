@@ -17,6 +17,10 @@ public class CategoriaUseCase {
         return categoriaGateway.findAll();
     }
 
+    public Categoria findById(Long id){
+        return id == null ? null : categoriaGateway.findById(id);
+    }
+
     
 
 }
