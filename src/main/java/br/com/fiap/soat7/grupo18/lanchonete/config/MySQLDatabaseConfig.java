@@ -31,6 +31,7 @@ public class MySQLDatabaseConfig implements DatabaseConfig {
     @Override
     @Bean
     public DataSource dataSource() {
+        System.out.println(String.format("Conectando ao banco de dados em: %s", urlDatabase));
         return DataSourceBuilder
                 .create()
                 .driverClassName(CLASS_NAME)
