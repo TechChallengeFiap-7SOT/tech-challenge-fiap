@@ -7,6 +7,17 @@ public class Categoria {
     private final Long id;
     private final String nome;
     
+    
+
+    public Categoria(Long id) {
+        boolean validId = id != null && id > 0L;
+        if (!validId){
+            throw new DomainEntityException("ID é obrigatório para referenciar uma categoria");
+        }
+        this.id = id;
+        this.nome = null;
+    }
+
     /**
      * 
      * @param id

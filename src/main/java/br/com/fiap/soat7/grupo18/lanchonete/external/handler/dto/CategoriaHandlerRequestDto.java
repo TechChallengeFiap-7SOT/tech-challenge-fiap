@@ -4,6 +4,9 @@ public class CategoriaHandlerRequestDto {
 
     private Long id;
 
+    public CategoriaHandlerRequestDto() {
+    }
+
     public CategoriaHandlerRequestDto(Long id) {
         this.id = id;
     }
@@ -11,4 +14,10 @@ public class CategoriaHandlerRequestDto {
     public Long getId() {
         return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    
 }

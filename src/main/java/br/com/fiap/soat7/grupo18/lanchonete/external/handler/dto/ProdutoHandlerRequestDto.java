@@ -7,7 +7,12 @@ public class ProdutoHandlerRequestDto {
     private String descricao;
     private BigDecimal preco;
     private CategoriaHandlerRequestDto categoria;
+
     
+    
+    public ProdutoHandlerRequestDto() {
+    }
+
     /**
      * 
      * @param nome
@@ -41,5 +46,23 @@ public class ProdutoHandlerRequestDto {
     public CategoriaHandlerRequestDto getCategoria() {
         return categoria;
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public void setCategoria(CategoriaHandlerRequestDto categoria) {
+        this.categoria = categoria;
+    }
+
+    
     
 }
