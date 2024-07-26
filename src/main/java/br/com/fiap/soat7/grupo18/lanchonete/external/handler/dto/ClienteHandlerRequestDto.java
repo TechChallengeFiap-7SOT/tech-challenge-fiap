@@ -2,11 +2,16 @@ package br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto;
 
 public class ClienteHandlerRequestDto {
 
-    private final String cpf;
+    private String cpf;
 
-    private final String nome;
+    private String nome;
 
-    private final String email;
+    private String email;
+
+    
+
+    public ClienteHandlerRequestDto() {
+    }
 
     /**
      * 
@@ -31,4 +36,18 @@ public class ClienteHandlerRequestDto {
     public String getEmail() {
         return email;
     }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    
 }

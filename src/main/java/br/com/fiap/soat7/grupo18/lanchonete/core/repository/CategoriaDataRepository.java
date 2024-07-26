@@ -9,4 +9,6 @@ public interface CategoriaDataRepository extends DataRepository {
 
     public List<Categoria> findAll();
 
+    public Categoria findById(Long id);
+
 }

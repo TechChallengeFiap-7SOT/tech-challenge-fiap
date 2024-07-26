@@ -17,5 +17,9 @@ public class CategoriaGateway {
         return categoriaRepository.findAll();
     }
 
+    public Categoria findById(Long id){
+        return categoriaRepository.findById(id);
+    }
+
     
 }

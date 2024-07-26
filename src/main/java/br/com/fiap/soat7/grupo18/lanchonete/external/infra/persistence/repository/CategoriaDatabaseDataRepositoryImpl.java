@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import br.com.fiap.soat7.grupo18.lanchonete.core.entity.Categoria;
 import br.com.fiap.soat7.grupo18.lanchonete.core.repository.CategoriaDataRepository;
 import br.com.fiap.soat7.grupo18.lanchonete.external.infra.persistence.entity.CategoriaEntity;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -23,6 +24,20 @@ public class CategoriaDatabaseDataRepositoryImpl extends DatabaseDataRepository 
         query.orderBy(cb.asc(root.get("id")));
 
         return getEntityManager().createQuery(query).getResultList();
+    }
+
+    @Override
+    public Categoria findById(Long id) {
+        CriteriaBuilder cb = getCriteriaBuilder();
+        CriteriaQuery<Categoria> query = cb.createQuery(Categoria.class);
+        Root<CategoriaEntity> root = query.from(CategoriaEntity.class);
+        query.select(cb.construct(Categoria.class, root.get("id"), root.get("nome")));
+        query.where(cb.equal(root.get("id"), id));
+        try{
+            return getEntityManager().createQuery(query).getSingleResult();
+        }catch(NoResultException nre){
+            return null;
+        }
     }
 
 }
