@@ -16,7 +16,7 @@ public class ClienteUseCase {
     }
 
     public Cliente findByCpfCliente(String cpf){
-        return clienteGateway.findByCpfCliente(cpf);
+        return cpf == null || cpf.isBlank() ? null : clienteGateway.findByCpfCliente(cpf);
     }
 
     public Cliente save(ClienteHandlerRequestDto clienteDto){

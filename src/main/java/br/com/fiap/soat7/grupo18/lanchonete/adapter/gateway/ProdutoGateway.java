@@ -21,6 +21,10 @@ public class ProdutoGateway {
         return produtoRepository.findByIdProduto(id);
     }
 
+    public Produto findAtivoByIdProduto(String id) {
+        return produtoRepository.findAtivoByIdProduto(id);
+    }
+
     public List<Produto> findByCategoria(Long idCategoria){
         return produtoRepository.findByCategoria(idCategoria);
     }

@@ -37,6 +37,19 @@ public class ProdutoDatabaseRepositoryImpl extends DatabaseDataRepository implem
     }
 
     @Override
+    public Produto findAtivoByIdProduto(String id) {
+        final String jpql = "select p from ProdutoEntity p join fetch p.categoria where p.id = :id and p.ativo = true";
+        try{
+            var produtoEntity = getEntityManager().createQuery(jpql, ProdutoEntity.class)
+                                    .setParameter("id", id)
+                                    .getSingleResult();
+            return getProdutoFromEntity(produtoEntity);
+        }catch (NoResultException nre){
+            return null;
+        }
+    }
+
+    @Override
     public List<Produto> findByCategoria(Long idCategoria) {
         final String jpql = "select p from ProdutoEntity p join fetch p.categoria c where c.id = :idCategoria";
         return getEntityManager().createQuery(jpql, ProdutoEntity.class)

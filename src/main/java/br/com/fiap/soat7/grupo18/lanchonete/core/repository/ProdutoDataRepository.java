@@ -10,6 +10,8 @@ public interface ProdutoDataRepository extends DataRepository {
     public Produto save(Produto produto);
 
     public Produto findByIdProduto(String id);
+    
+    public Produto findAtivoByIdProduto(String id);
 
     public List<Produto> findByCategoria(Long idCategoria);
 
@@ -18,6 +20,7 @@ public interface ProdutoDataRepository extends DataRepository {
     public void delete(String id);
 
     public Produto update(Produto produto);
+
 
 
 
