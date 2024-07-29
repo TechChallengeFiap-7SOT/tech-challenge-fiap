@@ -19,6 +19,7 @@ public class ProdutoDatabaseRepositoryImpl extends DatabaseDataRepository implem
         ProdutoEntity produtoEntity = getEntityFromProduto(produto);
         getEntityManager().persist(produtoEntity);
         getEntityManager().flush();
+        getEntityManager().clear();
         var savedEntity = getEntityManager().find(ProdutoEntity.class, produtoEntity.getId());
         return getProdutoFromEntity(savedEntity);
     }
@@ -77,6 +78,7 @@ public class ProdutoDatabaseRepositoryImpl extends DatabaseDataRepository implem
                     .setParameter("id", id)
                     .executeUpdate();
         getEntityManager().flush();
+        getEntityManager().clear();
     }
 
     @Override
@@ -84,6 +86,7 @@ public class ProdutoDatabaseRepositoryImpl extends DatabaseDataRepository implem
         var produtoEntity = getEntityFromProduto(produto);
         produtoEntity = getEntityManager().merge(produtoEntity);
         getEntityManager().flush();
+        getEntityManager().clear();
         return getProdutoFromEntity(produtoEntity);
     }
 

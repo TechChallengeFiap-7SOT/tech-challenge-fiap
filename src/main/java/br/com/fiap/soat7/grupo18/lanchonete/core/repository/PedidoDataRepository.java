@@ -15,7 +15,7 @@ public interface PedidoDataRepository extends DataRepository {
 
     public int updateStatus(String idPedido, StatusPedidoType novoStatus);
 
-    public int updateStatusPgto(String idPedido, StatusPgtoType novoStatusPgto);
+    public int updateStatusPgto(String idPedido, StatusPgtoType novoStatusPgto, String idTransacaoPgto);
 
     public StatusPgtoType getStatusPgto(String idPedido);
 

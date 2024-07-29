@@ -27,8 +27,8 @@ public class PedidoGateway {
         return pedidoRepository.updateStatus(idPedido, novoStatus);
     }
 
-    public int updateStatusPgto(String idPedido, StatusPgtoType novoStatusPgto) {
-        return pedidoRepository.updateStatusPgto(idPedido, novoStatusPgto);
+    public int updateStatusPgto(String idPedido, StatusPgtoType novoStatusPgto, String idTransacaoPgto) {
+        return pedidoRepository.updateStatusPgto(idPedido, novoStatusPgto, idTransacaoPgto);
     }
 
     public StatusPgtoType getStatusPgto(String idPedido) {

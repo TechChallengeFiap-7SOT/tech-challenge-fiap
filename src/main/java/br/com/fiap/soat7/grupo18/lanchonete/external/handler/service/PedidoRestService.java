@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fiap.soat7.grupo18.lanchonete.adapter.controller.PedidoController;
 import br.com.fiap.soat7.grupo18.lanchonete.adapter.gateway.ClienteGateway;
@@ -36,14 +38,17 @@ public class PedidoRestService {
         return pedidoController.findById(idPedido);
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public PedidoHandlerResponseDto save(PedidoHandlerRequestDto pedidoDto) {
         return pedidoController.save(pedidoDto, produtoUseCase, clienteUseCase);
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void updateStatus(String idPedido, String novoStatusStr) {
         pedidoController.updateStatus(idPedido, novoStatusStr);
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void updateStatusPgto(String idPedido, String novoStatusPgtoStr) {
         pedidoController.updateStatusPgto(idPedido, novoStatusPgtoStr);
     }

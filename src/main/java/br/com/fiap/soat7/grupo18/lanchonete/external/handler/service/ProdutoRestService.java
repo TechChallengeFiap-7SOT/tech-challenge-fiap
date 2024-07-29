@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fiap.soat7.grupo18.lanchonete.adapter.controller.ProdutoController;
@@ -30,7 +31,7 @@ public class ProdutoRestService {
         return produtoController.findByIdProduto(id);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public ProdutoHandlerResponseDto save(ProdutoHandlerRequestDto produtoDto){
         return produtoController.save(produtoDto, categoriaUseCase);
     }
@@ -43,12 +44,12 @@ public class ProdutoRestService {
         return produtoController.findAllByAtivoTrue();
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void delete(String id){
         produtoController.delete(id);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public ProdutoHandlerResponseDto update(String idProduto, ProdutoHandlerRequestDto produtoDto){
         return produtoController.update(idProduto, produtoDto, categoriaUseCase);
     }

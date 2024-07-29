@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fiap.soat7.grupo18.lanchonete.core.entity.Categoria;
 import br.com.fiap.soat7.grupo18.lanchonete.core.entity.Cliente;
@@ -35,32 +33,35 @@ public class PedidoDatabaseRepositoryImpl extends DatabaseDataRepository impleme
     }
 
     @Override
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     public Pedido save(Pedido pedido) {
         PedidoEntity entity = getEntityFromPedido(pedido);
         getEntityManager().persist(entity);
         getEntityManager().flush();
-        return pedido;
+        getEntityManager().clear();
+        return getPedidoFromEntity(findSaved(pedido.getId()));
     }
 
     @Override
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     public int updateStatus(String idPedido, StatusPedidoType novoStatus) {
         final String ql = "update PedidoEntity p set p.status = :status where p.id = :idPedido";
-        return getEntityManager().createQuery(ql)
+        int updated = getEntityManager().createQuery(ql)
                         .setParameter("status", novoStatus)
                         .setParameter("idPedido", idPedido)
                         .executeUpdate();
+        getEntityManager().clear();
+        return updated;
     }
 
     @Override
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
-    public int updateStatusPgto(String idPedido, StatusPgtoType novoStatusPgto) {
-        final String ql = "update PedidoEntity p set p.statusPgto = :status where p.id = :idPedido";
-        return getEntityManager().createQuery(ql)
+    public int updateStatusPgto(String idPedido, StatusPgtoType novoStatusPgto, String idTransacaoPgto) {
+        final String ql = "update PedidoEntity p set p.statusPgto = :status, p.idTransacaoPagamento = :idTransacao where p.id = :idPedido";
+        int updated = getEntityManager().createQuery(ql)
                         .setParameter("status", novoStatusPgto)
+                        .setParameter("idTransacao", idTransacaoPgto)
                         .setParameter("idPedido", idPedido)
                         .executeUpdate();
+        getEntityManager().clear();
+        return updated;
     }
 
     @Override

@@ -2,6 +2,7 @@ package br.com.fiap.soat7.grupo18.lanchonete.external.handler.service;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fiap.soat7.grupo18.lanchonete.adapter.controller.ClienteController;
@@ -22,7 +23,7 @@ public class ClienteRestService {
         return clienteController.findByCpfCliente(cpf);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public ClienteHandlerResponseDto save(ClienteHandlerRequestDto clienteDto){
         return clienteController.save(clienteDto);
     }

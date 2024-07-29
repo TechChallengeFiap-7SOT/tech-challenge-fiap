@@ -39,7 +39,7 @@ public class PedidoController {
     }
 
     public void updateStatusPgto(String idPedido, String novoStatusPgtoStr) {
-        pedidoUseCase.updateStatusPgto(idPedido, novoStatusPgtoStr);
+        pedidoUseCase.updateStatusPgto(idPedido, novoStatusPgtoStr, null);
     }
 
     public StatusPgtoType getStatusPgto(String idPedido) {

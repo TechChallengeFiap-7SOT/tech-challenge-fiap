@@ -28,7 +28,7 @@ public class PedidoUseCase {
 
     private static final Comparator<Pedido> DEFAULT_SORT_COMPARATOR = Comparator.comparingInt((Pedido p) -> p.getStatus().getFlowOrder())
                                                                             .reversed()
-                                                                            .thenComparing(Pedido::getDataHora, Comparator.reverseOrder());
+                                                                            .thenComparing(Pedido::getDataHora);
 
     private final PedidoGateway pedidoGateway;
 
@@ -96,10 +96,10 @@ public class PedidoUseCase {
 
     }
 
-    public void updateStatusPgto(String idPedido, String novoStatusPgtoStr) {
+    public void updateStatusPgto(String idPedido, String novoStatusPgtoStr, String idTransacaoPgto) {
         StatusPgtoType novoStatusPgto = StatusPgtoType.parseByName(novoStatusPgtoStr);
         if (novoStatusPgto == null){
-            throw new DomainUseCaseException("Novo status de pagamento não informado");
+            throw new DomainUseCaseException("Novo status de pagamento não informado ou inválido");
         }
 
         var pedido = pedidoGateway.findById(idPedido);
@@ -120,7 +120,7 @@ public class PedidoUseCase {
 
         var novoStatusPedido = StatusPgtoType.RECUSADO == novoStatusPgto ? StatusPedidoType.RECEBIDO : StatusPedidoType.EM_PREPARACAO;
 
-        pedidoGateway.updateStatusPgto(idPedido, novoStatusPgto);
+        pedidoGateway.updateStatusPgto(idPedido, novoStatusPgto, idTransacaoPgto);
         if (deveAtualizarStatusPedido){
             updateStatus(idPedido, novoStatusPedido.name());
         }
