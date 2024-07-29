@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fiap.soat7.grupo18.lanchonete.core.entity.Categoria;
 import br.com.fiap.soat7.grupo18.lanchonete.core.entity.Cliente;
@@ -33,29 +35,31 @@ public class PedidoDatabaseRepositoryImpl extends DatabaseDataRepository impleme
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     public Pedido save(Pedido pedido) {
         PedidoEntity entity = getEntityFromPedido(pedido);
         getEntityManager().persist(entity);
         getEntityManager().flush();
-        var savedEntity = findSaved(entity.getId());
-        return getPedidoFromEntity(savedEntity);
+        return pedido;
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     public int updateStatus(String idPedido, StatusPedidoType novoStatus) {
         final String ql = "update PedidoEntity p set p.status = :status where p.id = :idPedido";
         return getEntityManager().createQuery(ql)
                         .setParameter("status", novoStatus)
-                        .setParameter("id", idPedido)
+                        .setParameter("idPedido", idPedido)
                         .executeUpdate();
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     public int updateStatusPgto(String idPedido, StatusPgtoType novoStatusPgto) {
         final String ql = "update PedidoEntity p set p.statusPgto = :status where p.id = :idPedido";
         return getEntityManager().createQuery(ql)
                         .setParameter("status", novoStatusPgto)
-                        .setParameter("id", idPedido)
+                        .setParameter("idPedido", idPedido)
                         .executeUpdate();
     }
 
@@ -73,7 +77,7 @@ public class PedidoDatabaseRepositoryImpl extends DatabaseDataRepository impleme
 
     @Override
     public List<Pedido> findAll() {
-        final String jpql = "select p from PedidoEntity p join fetch p.produtos prods";
+        final String jpql = "select p from PedidoEntity p join fetch p.produtos join fetch p.cliente  prods";
         return getEntityManager().createQuery(jpql, PedidoEntity.class)
                     .getResultList()
                     .stream()
@@ -94,7 +98,7 @@ public class PedidoDatabaseRepositoryImpl extends DatabaseDataRepository impleme
     }
 
     private PedidoEntity findSaved(String id){
-        final String jpql = "select p from PedidoEntity p join fetch p.produtos prods where p.id = :id";
+        final String jpql = "select p from PedidoEntity p join fetch p.cliente join fetch p.produtos prods where p.id = :id";
         try{
             return getEntityManager().createQuery(jpql, PedidoEntity.class)
                             .setParameter("id", id)
@@ -167,6 +171,9 @@ public class PedidoDatabaseRepositoryImpl extends DatabaseDataRepository impleme
         return PedidoEntity.builder()
                         .id(pedido.getId())
                         .dataHora(pedido.getDataHora())
+                        .valor(pedido.getValor())
+                        .status(pedido.getStatus())
+                        .statusPgto(pedido.getStatusPgto())
                         .cliente(cliente)
                         .produtos(produtos)
                         .build();

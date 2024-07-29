@@ -21,7 +21,7 @@ public enum StatusPgtoType {
 
     public static StatusPgtoType parseByName(String name){
         return Stream.of(StatusPgtoType.values())
-                    .filter(v -> v.name().equalsIgnoreCase(Optional.ofNullable(name).map(String::trim).orElse("")))
+                    .filter(v -> name != null && v.name().equalsIgnoreCase(Optional.ofNullable(name).map(String::trim).orElse("")))
                     .findFirst()
                     .orElse(null);
     }

@@ -2,29 +2,29 @@ package br.com.fiap.soat7.grupo18.lanchonete.external.handler.service;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fiap.soat7.grupo18.lanchonete.adapter.controller.ClienteController;
 import br.com.fiap.soat7.grupo18.lanchonete.core.repository.ClienteDataRepository;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.ClienteHandlerRequestDto;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.ClienteHandlerResponseDto;
-import jakarta.transaction.Transactional;
 
 @Service
 public class ClienteRestService {
 
-    private final ClienteDataRepository clienteRepository;
+    private final ClienteController clienteController;
 
     public ClienteRestService(@Qualifier("clienteDatabaseRepository") ClienteDataRepository clienteRepository) {
-        this.clienteRepository = clienteRepository;
+        this.clienteController = new ClienteController(clienteRepository);
     }
 
     public ClienteHandlerResponseDto findByCpfCliente(String cpf){
-        return new ClienteController(clienteRepository).findByCpfCliente(cpf);
+        return clienteController.findByCpfCliente(cpf);
     }
 
     @Transactional
     public ClienteHandlerResponseDto save(ClienteHandlerRequestDto clienteDto){
-        return new ClienteController(clienteRepository).save(clienteDto);
+        return clienteController.save(clienteDto);
     }
 
     

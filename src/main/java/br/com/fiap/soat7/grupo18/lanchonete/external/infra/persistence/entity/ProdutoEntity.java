@@ -48,7 +48,7 @@ public class ProdutoEntity {
     private boolean ativo = true;
 
     @Builder.Default
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<PedidoProdutoEntity> produtos = new ArrayList<>();
 
 }

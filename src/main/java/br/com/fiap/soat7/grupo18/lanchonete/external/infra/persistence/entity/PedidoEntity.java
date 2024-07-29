@@ -12,6 +12,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -34,7 +35,7 @@ public class PedidoEntity {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cpf_cliente")
     private ClienteEntity cliente;
 
@@ -51,7 +52,7 @@ public class PedidoEntity {
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
-    @Column(name = "statusPgto")
+    @Column(name = "status_pgto")
     private StatusPgtoType statusPgto = StatusPgtoType.AGUARDANDO;
 
     @Column(name = "id_transacao_pagamento")

@@ -12,14 +12,14 @@ import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.CategoriaHandle
 @Service
 public class CategoriaRestService {
 
-    private final CategoriaDataRepository categoriaRepository;
+    private final CategoriaController categoriaController;
 
     public CategoriaRestService(@Qualifier("categoriaDatabaseRepository") CategoriaDataRepository categoriaRepository) {
-        this.categoriaRepository = categoriaRepository;
+        this.categoriaController = new CategoriaController(categoriaRepository);
     }
 
     public List<CategoriaHandlerResponseDto> findAll(){
-        return new CategoriaController(categoriaRepository).findAll();
+        return categoriaController.findAll();
     }
 
     

@@ -64,7 +64,9 @@ public class PedidoUseCase {
         return pedidoGateway.save(novoPedido);
     }
 
-    public void updateStatus(String idPedido, StatusPedidoType novoStatus) {
+    public void updateStatus(String idPedido, String novoStatusStr) {
+        StatusPedidoType novoStatus = StatusPedidoType.parseByName(novoStatusStr);
+        
         if (novoStatus == null){
             throw new DomainUseCaseException("Novo status do pedido não informado");
         }
@@ -94,7 +96,8 @@ public class PedidoUseCase {
 
     }
 
-    public void updateStatusPgto(String idPedido, StatusPgtoType novoStatusPgto) {
+    public void updateStatusPgto(String idPedido, String novoStatusPgtoStr) {
+        StatusPgtoType novoStatusPgto = StatusPgtoType.parseByName(novoStatusPgtoStr);
         if (novoStatusPgto == null){
             throw new DomainUseCaseException("Novo status de pagamento não informado");
         }
@@ -119,7 +122,7 @@ public class PedidoUseCase {
 
         pedidoGateway.updateStatusPgto(idPedido, novoStatusPgto);
         if (deveAtualizarStatusPedido){
-            updateStatus(idPedido, novoStatusPedido);
+            updateStatus(idPedido, novoStatusPedido.name());
         }
 
     }

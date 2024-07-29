@@ -35,7 +35,7 @@ public enum StatusPedidoType {
 
     public static StatusPedidoType parseByName(String name){
         return Stream.of(StatusPedidoType.values())
-                    .filter(v -> v.name().equalsIgnoreCase(Optional.ofNullable(name).map(String::trim).orElse("")))
+                    .filter(v -> name != null && v.name().equalsIgnoreCase(Optional.ofNullable(name).map(String::trim).orElse("")))
                     .findFirst()
                     .orElse(null);
     }

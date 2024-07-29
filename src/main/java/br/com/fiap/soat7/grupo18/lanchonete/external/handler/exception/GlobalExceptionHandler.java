@@ -16,12 +16,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({DomainEntityException.class, DomainUseCaseException.class})
     @ResponseBody
     public ResponseEntity<String> handleDomainException(RuntimeException re){
+        re.printStackTrace();
         return ResponseEntity.badRequest().body(re.getMessage());
     }
 
     @ExceptionHandler(NotFoundEntityException.class)
     @ResponseBody
     public ResponseEntity<String> handleNotFoundException(RuntimeException re){
+        re.printStackTrace();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(re.getMessage());
     }
 
