@@ -2,6 +2,7 @@ package br.com.fiap.soat7.grupo18.lanchonete.core.entity;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import br.com.fiap.soat7.grupo18.lanchonete.external.infra.exception.DomainEntityException;
 
@@ -76,6 +77,22 @@ public class Produto {
         return ativo;
     }
 
+    public boolean isCategoriaLanche(){
+        return Categoria.CATEGORIA_LANCHE == categoria.getId();
+    }
+
+    public boolean isCategoriaAcompanhamento(){
+        return Categoria.CATEGORIA_ACOMPANHAMENTO == categoria.getId();
+    }
+
+    public boolean isCategoriaBebida(){
+        return Categoria.CATEGORIA_BEBIDA == categoria.getId();
+    }
+
+    public boolean isCategoriaSobremesa(){
+        return Categoria.CATEGORIA_SOBREMESA == categoria.getId();
+    }
+
     private void validateProduto() {
         if (Optional.ofNullable(nome).orElse("").isBlank()){
             throw new DomainEntityException("Nome do produto é obrigatório");
@@ -90,6 +107,10 @@ public class Produto {
         }
 
         Optional.ofNullable(categoria).map(Categoria::getId).orElseThrow(() -> new DomainEntityException("Categoria do produto é obrigatória"));
+
+        if (Stream.of(isCategoriaLanche(), isCategoriaAcompanhamento(), isCategoriaBebida(), isCategoriaSobremesa()).allMatch(i -> !i)){
+            throw new DomainEntityException("Categoria de produto inválida");
+        }
 
         if (id == null && !ativo){
             throw new DomainEntityException("Não é possível cadastrar um produto com status 'inativo'");

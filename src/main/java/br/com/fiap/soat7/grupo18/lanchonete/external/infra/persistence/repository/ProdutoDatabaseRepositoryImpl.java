@@ -19,6 +19,7 @@ public class ProdutoDatabaseRepositoryImpl extends DatabaseDataRepository implem
         ProdutoEntity produtoEntity = getEntityFromProduto(produto);
         getEntityManager().persist(produtoEntity);
         getEntityManager().flush();
+        getEntityManager().clear();
         var savedEntity = getEntityManager().find(ProdutoEntity.class, produtoEntity.getId());
         return getProdutoFromEntity(savedEntity);
     }
@@ -26,6 +27,19 @@ public class ProdutoDatabaseRepositoryImpl extends DatabaseDataRepository implem
     @Override
     public Produto findByIdProduto(String id) {
         final String jpql = "select p from ProdutoEntity p join fetch p.categoria where p.id = :id";
+        try{
+            var produtoEntity = getEntityManager().createQuery(jpql, ProdutoEntity.class)
+                                    .setParameter("id", id)
+                                    .getSingleResult();
+            return getProdutoFromEntity(produtoEntity);
+        }catch (NoResultException nre){
+            return null;
+        }
+    }
+
+    @Override
+    public Produto findAtivoByIdProduto(String id) {
+        final String jpql = "select p from ProdutoEntity p join fetch p.categoria where p.id = :id and p.ativo = true";
         try{
             var produtoEntity = getEntityManager().createQuery(jpql, ProdutoEntity.class)
                                     .setParameter("id", id)
@@ -64,6 +78,7 @@ public class ProdutoDatabaseRepositoryImpl extends DatabaseDataRepository implem
                     .setParameter("id", id)
                     .executeUpdate();
         getEntityManager().flush();
+        getEntityManager().clear();
     }
 
     @Override
@@ -71,6 +86,7 @@ public class ProdutoDatabaseRepositoryImpl extends DatabaseDataRepository implem
         var produtoEntity = getEntityFromProduto(produto);
         produtoEntity = getEntityManager().merge(produtoEntity);
         getEntityManager().flush();
+        getEntityManager().clear();
         return getProdutoFromEntity(produtoEntity);
     }
 

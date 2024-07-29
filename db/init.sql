@@ -25,9 +25,11 @@ CREATE TABLE IF NOT EXISTS produto (
 CREATE TABLE IF NOT EXISTS pedido (
     id VARCHAR(100) NOT NULL,
     cpf_cliente VARCHAR(11),
-    data_hora TIMESTAMP,
-    valor DECIMAL(10,2),
-    status INT,
+    data_hora TIMESTAMP NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    status_pgto VARCHAR(50) NOT NULL,
+    id_transacao_pagamento VARCHAR(400),
     PRIMARY KEY (id),
     FOREIGN KEY(cpf_cliente) REFERENCES cliente (cpf)
 );

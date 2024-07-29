@@ -13,15 +13,17 @@ import br.com.fiap.soat7.grupo18.lanchonete.external.infra.exception.NotFoundEnt
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({DomainEntityException.class, DomainUseCaseException.class})
+    @ExceptionHandler({DomainEntityException.class, DomainUseCaseException.class, UnsupportedOperationException.class})
     @ResponseBody
     public ResponseEntity<String> handleDomainException(RuntimeException re){
+        re.printStackTrace();
         return ResponseEntity.badRequest().body(re.getMessage());
     }
 
     @ExceptionHandler(NotFoundEntityException.class)
     @ResponseBody
     public ResponseEntity<String> handleNotFoundException(RuntimeException re){
+        re.printStackTrace();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(re.getMessage());
     }
 

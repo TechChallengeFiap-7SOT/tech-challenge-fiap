@@ -6,12 +6,33 @@ Toda a documentação DDD do Event Storm para o refinamento se encontra disponí
 ## Autores
 Turma: 7 SOAT.
 - [@pinheirojks](https://github.com/pinheirojks)
-- [@legasrossini](https://github.com/legasrossini)
 - [@maurimurakami](https://github.com/maurimurakami)
 - [@Piovezan1207](https://github.com/Piovezan1207)
 
 # Tecnologias utilizadas
 * A aplicação foi desenvolvida utilizando Java 17, framework Spring Boot, com a utilização do banco de dados MySql. Além disso foi utilizado o Docker para a execução da aplicação e do banco de dados e o Swagger para a documentação da API.
+
+# Estrutura do projeto
+├───adapter
+│   ├───controller
+│   ├───gateway
+│   └───presenter
+├───config
+├───core
+│   ├───entity
+│   ├───repository
+│   ├───type
+│   └───usecase
+└───external
+    ├───handler
+    │   ├───dto
+    │   ├───exception
+    │   └───service
+    └───infra
+        ├───exception
+        └───persistence
+            ├───entity
+            └───repository
 
 # Premissas para a execução do projeto.
 * Ter o [docker](https://www.docker.com/products/docker-desktop/) instalado na máquina.

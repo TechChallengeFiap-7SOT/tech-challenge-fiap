@@ -25,6 +25,10 @@ public class ProdutoUseCase {
         return id == null || id.isBlank() ? null : produtoGateway.findByIdProduto(id);
     }
 
+    public Produto findAtivoByIdProduto(String id){
+        return id == null || id.isBlank() ? null : produtoGateway.findAtivoByIdProduto(id);
+    }
+
     public Produto save(ProdutoHandlerRequestDto produtoDto, CategoriaUseCase categoriaUseCase){
         final boolean STATUS_ATIVO = true;
         if (produtoDto == null){

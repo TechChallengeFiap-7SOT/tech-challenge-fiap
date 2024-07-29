@@ -7,7 +7,6 @@ import br.com.fiap.soat7.grupo18.lanchonete.external.infra.exception.DomainEntit
 public class Cliente {
 
     private static final int LENGTH_CPF = 11;
-    private static final String ONLY_ALPHA_REGEX = "^[a-zA-Z ]+$";
     private static final String _11_DIGITS_REGEX = "^[0-9]{11}$";
 
     private final String cpf;
@@ -31,7 +30,7 @@ public class Cliente {
             throw new DomainEntityException("CPF não informado ou inválido");
         }
 
-        if (Optional.ofNullable(nome).orElse("").isBlank() || !nome.matches(ONLY_ALPHA_REGEX)){
+        if (Optional.ofNullable(nome).orElse("").isBlank()){
             throw new DomainEntityException("Nome do cliente não informado ou inválido");
         }
 
