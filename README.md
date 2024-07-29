@@ -14,7 +14,7 @@ Turma: 7 SOAT.
 
 # Estrutura do projeto
 
-`
+```
 ├───adapter
 │   ├───controller
 │   ├───gateway
@@ -35,7 +35,7 @@ Turma: 7 SOAT.
         └───persistence
             ├───entity
             └───repository
-`
+```
 
 
 # Premissas para a execução do projeto.
