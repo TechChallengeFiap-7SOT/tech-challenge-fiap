@@ -66,6 +66,9 @@ public class MySQLDatabaseConfig implements DatabaseConfig {
         properties.setProperty("spring.jpa.hibernate.ddl-auto", "update");
         properties.setProperty("spring.jpa.database-platform", "org.hibernate.dialect.MySQLDialect");
         properties.setProperty("spring.jpa.properties.hibernate.format_sql", "true");
+        properties.setProperty("spring.jpa.show-sql", "true");
+        properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("hibernate.format_sql", "true");
         return properties;
     }
 

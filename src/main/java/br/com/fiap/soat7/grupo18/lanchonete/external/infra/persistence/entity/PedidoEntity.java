@@ -36,7 +36,7 @@ public class PedidoEntity {
     private String id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cpf_cliente")
+    @JoinColumn(name = "cpf_cliente", nullable = true)
     private ClienteEntity cliente;
 
     @Column(name = "data_hora")

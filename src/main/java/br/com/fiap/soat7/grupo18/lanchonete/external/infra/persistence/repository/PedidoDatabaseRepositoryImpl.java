@@ -78,7 +78,7 @@ public class PedidoDatabaseRepositoryImpl extends DatabaseDataRepository impleme
 
     @Override
     public List<Pedido> findAll() {
-        final String jpql = "select p from PedidoEntity p join fetch p.produtos join fetch p.cliente  prods";
+        final String jpql = "select p from PedidoEntity p join fetch p.produtos prods";
         return getEntityManager().createQuery(jpql, PedidoEntity.class)
                     .getResultList()
                     .stream()
@@ -99,7 +99,7 @@ public class PedidoDatabaseRepositoryImpl extends DatabaseDataRepository impleme
     }
 
     private PedidoEntity findSaved(String id){
-        final String jpql = "select p from PedidoEntity p join fetch p.cliente join fetch p.produtos prods where p.id = :id";
+        final String jpql = "select p from PedidoEntity p left join fetch p.cliente join fetch p.produtos prods where p.id = :id";
         try{
             return getEntityManager().createQuery(jpql, PedidoEntity.class)
                             .setParameter("id", id)
@@ -143,9 +143,10 @@ public class PedidoDatabaseRepositoryImpl extends DatabaseDataRepository impleme
     }
 
     private PedidoEntity getEntityFromPedido(Pedido pedido) {
-        ClienteEntity cliente = ClienteEntity.builder()
-                                        .cpf(pedido.getCliente().getCpf())
-                                        .build();
+        ClienteEntity cliente = pedido.getCliente() != null ? ClienteEntity.builder()
+                                                                    .cpf(pedido.getCliente().getCpf())
+                                                                    .build()
+                                                            : null;
         
         var produtos = pedido.getProdutos().stream()
                         .map(p -> {
