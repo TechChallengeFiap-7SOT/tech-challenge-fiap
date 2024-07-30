@@ -27,6 +27,12 @@ public class MySQLDatabaseConfig implements DatabaseConfig {
     @Value("${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/lanchonete_db?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false}")
     private String urlDatabase;
 
+    @Value("${MYSQL_USER:"+ USER + "}")
+    private String mySqlUser;
+
+    @Value("${MYSQL_PASSWORD:" + PASSWD + "}")
+    private String mySqlPasswd;
+
 
     @Override
     @Bean
