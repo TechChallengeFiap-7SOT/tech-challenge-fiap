@@ -10,6 +10,9 @@ Turma: 7 SOAT.
 - Maurício Murakami - [@maurimurakami](https://github.com/maurimurakami)
 - Vinícius Piovezan - [@Piovezan1207](https://github.com/Piovezan1207)
 
+# Arquietura do projejto
+
+![](src/main/resources/images/infra-tech-challenge-2.jpeg)
 # Tecnologias utilizadas
 * A aplicação foi desenvolvida utilizando Java 17, framework Spring Boot, com a utilização do banco de dados MySql. Além disso foi utilizado o Docker para a execução da aplicação localmente, contendo uma instância do banco de dados, além do Swagger para a documentação da API.
 
@@ -64,18 +67,36 @@ Os pacotes `core.entity` e `core.type` representam os objetos presentes na camad
 
 
 
-# Premissas para a execução do projeto localmente.
-* Ter o [docker](https://www.docker.com/products/docker-desktop/) instalado na máquina.
+# Para a execução do projeto localmente com docker ou K8s.
+* Ter o [docker](https://www.docker.com/products/docker-desktop/) instalado na máquina, com o kubernetes habilitado e configurado.
 * Realizar o checkout da branch `Main` deste repositório.
 
-# Passo a passo para a execução do projeto localmente.
+# Passo a passo para a execução do projeto localmente com docker ou K8s.
 No vídeo apresentado demonstramos a execução do projeto na infraestrutura do Kubernetes, porém caso seja necessário executar o projeto localmente, seguir os passos a seguir:
+### Executando com docker compose:
 * Após o checkout da branch Main, acessar a raiz do projeto onde se encontra o arquivo docker-compose.yml.
 * Com o terminal aberto na raiz do projeto, executar o comando `docker-compose up` para iniciar a aplicação.
-* Após a execução do comando, a aplicação responderá em [localhost:8080](localhost:8080).
-* A aplicação estará disponível para testes na interface do Swagger, acessível em [localhost:8080/swagger-ui.html](localhost:8080/swagger-ui/index.html).
 * Após a execução do comando `docker-compose up`, aguardar alguns instantes até que a aplicação esteja disponível.
+* A aplicação responderá em [localhost:8080](localhost:8080).
+* A aplicação estará disponível para testes na interface do Swagger, acessível em [localhost:8080/swagger-ui.html](localhost:8080/swagger-ui/index.html).
 * Para encerrar a execução da aplicação, basta executar o comando `docker-compose down`.
+### Executando com kubernetes (cluster k8s do docker):
+* Após o checkout da branch Main, acessar a pasta "k8s";
+* Executar os comandos a segguir em ordem:
+    * `kubectl appply -f metrics.yaml` 
+    * `kubectl create configmap db-init-config --from-file=init.sql=init.sql` 
+    * `kubectl appply -f mysql.yaml` 
+    * `kubectl appply -f lanchonete.yaml` 
+    * `kubectl appply -f lanchoneteHpa.yaml` 
+* Apósa esecução desses comandos, aguarde um momento, até que a aplicação esteja disponível.
+* A aplicação responderá em [localhost:31300](localhost:31300).
+* A aplicação estará disponível para testes na interface do Swagger, acessível em [localhost:31300/swagger-ui.html](localhost:31300/swagger-ui/index.html).
+* Para Parar a execução de todos os pods e services referentes a aplicação, de os seguintes comandos: 
+    * `kubectl delete -f lanchoneteHpa.yaml` 
+    * `kubectl delete -f lanchonete.yaml` 
+    * `kubectl delete -f mysql.yaml` 
+    * `kubectl delete configmap db-init-config` 
+    * `kubectl delete -f metrics.yaml` 
 
 # Funcionalidades
 * A seguir são apresentadas as funcionalidades presentes na API.
