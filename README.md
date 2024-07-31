@@ -4,6 +4,9 @@ Esse projeto é uma evolução do projeto criado na Fase I, utilizando agora as 
 
 Para uma revisão do projeto, contendo a documentação do Event Storm de onde o projeto se originou na Fase I, consultar o projeto no [Miro](https://miro.com/app/board/uXjVKC2h5jE=/).
 
+### Vídeos explicativos:
+* Demonstração da arquitetura desenvolvida localmente: [VIDEO](https://www.youtube.com/watch?v=AUhHYshZpXs)
+
 ## Autores
 Turma: 7 SOAT.
 - Jackson Pinheiro - [@pinheirojks](https://github.com/pinheirojks)
@@ -19,7 +22,7 @@ Turma: 7 SOAT.
 # Arquietura Limpa (Clean Architecture)
 
 ![](src/main/resources/images/clean-arch.PNG)
-# Estrutura do projeto
+# Estrutura do projeto'
 
 ```
 ├───adapter
