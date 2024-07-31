@@ -6,6 +6,7 @@ Para uma revisão do projeto, contendo a documentação do Event Storm de onde o
 
 ### Vídeos explicativos:
 * Demonstração da arquitetura desenvolvida localmente: [VIDEO](https://www.youtube.com/watch?v=AUhHYshZpXs)
+* Apresentação do projeto aplicando Clean Architecture [VIDEO](https://www.youtube.com/watch?v=Q5iYJRKFhu0)
 
 ## Autores
 Turma: 7 SOAT.
