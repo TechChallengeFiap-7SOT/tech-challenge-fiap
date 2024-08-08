@@ -17,11 +17,7 @@ public class MockPagamentoGateway extends AbstractPagamentoGateway<Map<String, O
 
     public MockPagamentoGateway(Map<String, Object> mapaRetornoGateway) {
         super(mapaRetornoGateway);
-        //como é um mock, gera um número aleatório de 1 a 5, onde sendo gerado o valor 1, informa que o pgto foi recusado. Apenas para testes...
-        final int random = new Random().nextInt(5)+1;
-        statusPgto = random == 1 ? StatusPgtoType.RECUSADO : StatusPgtoType.APROVADO;
-        dataHoraPgto = LocalDateTime.now();
-        idTransacao = String.format("%02d_%s", random, UUID.randomUUID().toString());
+        
     }
 
     @Override
@@ -37,6 +33,16 @@ public class MockPagamentoGateway extends AbstractPagamentoGateway<Map<String, O
     @Override
     public String getIdTransacao() {
         return idTransacao;
+    }
+
+    @Override
+    public String geraRequisicaoPgto() {
+        //como é um mock, gera um número aleatório de 1 a 5, onde sendo gerado o valor 1, informa que o pgto foi recusado. Apenas para testes...
+        final int random = new Random().nextInt(5)+1;
+        statusPgto = random == 1 ? StatusPgtoType.RECUSADO : StatusPgtoType.APROVADO;
+        dataHoraPgto = LocalDateTime.now();
+        idTransacao = String.format("%02d_%s", random, UUID.randomUUID().toString());
+        return "ok";
     }
 
 }

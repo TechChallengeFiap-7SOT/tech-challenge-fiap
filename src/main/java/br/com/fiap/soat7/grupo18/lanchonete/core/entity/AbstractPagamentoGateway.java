@@ -17,5 +17,7 @@ public abstract class AbstractPagamentoGateway<T> {
     public abstract LocalDateTime getDataHoraPgto();
 
     public abstract String getIdTransacao();
+
+    public abstract String geraRequisicaoPgto();
     
 }

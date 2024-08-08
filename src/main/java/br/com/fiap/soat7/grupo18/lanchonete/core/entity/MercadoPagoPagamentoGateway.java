@@ -29,4 +29,10 @@ public class MercadoPagoPagamentoGateway extends AbstractPagamentoGateway<String
         throw new UnsupportedOperationException("Unimplemented method 'getIdTransacao'");
     }
 
+    @Override
+    public String geraRequisicaoPgto() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'geraRequisicaoPgto'");
+    }
+
 }
