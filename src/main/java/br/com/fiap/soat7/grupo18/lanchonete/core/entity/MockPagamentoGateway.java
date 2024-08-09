@@ -36,7 +36,7 @@ public class MockPagamentoGateway extends AbstractPagamentoGateway<Map<String, O
     }
 
     @Override
-    public String geraRequisicaoPgto() {
+    public String geraRequisicaoPgto(Map<String, Object> params) {
         //como é um mock, gera um número aleatório de 1 a 5, onde sendo gerado o valor 1, informa que o pgto foi recusado. Apenas para testes...
         final int random = new Random().nextInt(5)+1;
         statusPgto = random == 1 ? StatusPgtoType.RECUSADO : StatusPgtoType.APROVADO;
