@@ -1,6 +1,7 @@
 package br.com.fiap.soat7.grupo18.lanchonete.core.entity;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import br.com.fiap.soat7.grupo18.lanchonete.core.type.StatusPgtoType;
 
@@ -30,8 +31,8 @@ public class MercadoPagoPagamentoGateway extends AbstractPagamentoGateway<String
     }
 
     @Override
-    public String geraRequisicaoPgto() {
-        // TODO Auto-generated method stub
+    public String geraRequisicaoPgto(Map<String, Object> params) {
+        // TODO prosseguir implementando a integração com a loja...
         throw new UnsupportedOperationException("Unimplemented method 'geraRequisicaoPgto'");
     }
 

@@ -1,6 +1,7 @@
 package br.com.fiap.soat7.grupo18.lanchonete.core.entity;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import br.com.fiap.soat7.grupo18.lanchonete.core.type.StatusPgtoType;
 
@@ -18,6 +19,6 @@ public abstract class AbstractPagamentoGateway<T> {
 
     public abstract String getIdTransacao();
 
-    public abstract String geraRequisicaoPgto();
+    public abstract String geraRequisicaoPgto(Map<String, Object> params);
     
 }
