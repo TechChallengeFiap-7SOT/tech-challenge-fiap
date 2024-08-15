@@ -19,6 +19,8 @@ public class PedidoHandlerResponseDto {
 
     private StatusPgtoType statusPgto;
 
+    private String idTransacaoPagamento;
+
     private ClienteHandlerResponseDto cliente;
 
     private List<ComboPedidoHandlerResponseDto> combos;
@@ -34,7 +36,8 @@ public class PedidoHandlerResponseDto {
      * @param combos
      */
     public PedidoHandlerResponseDto(String idPedido, LocalDateTime dataHora, BigDecimal valor, StatusPedidoType status,
-            StatusPgtoType statusPgto, ClienteHandlerResponseDto cliente, List<ComboPedidoHandlerResponseDto> combos) {
+            StatusPgtoType statusPgto, ClienteHandlerResponseDto cliente, List<ComboPedidoHandlerResponseDto> combos,
+            String idTransacaoPagamento) {
         this.idPedido = idPedido;
         this.dataHora = dataHora;
         this.valor = valor;
@@ -42,6 +45,7 @@ public class PedidoHandlerResponseDto {
         this.statusPgto = statusPgto;
         this.cliente = cliente;
         this.combos = combos != null ? List.copyOf(combos) : List.of();
+        this.idTransacaoPagamento = idTransacaoPagamento;
     }
 
     public String getIdPedido() {
@@ -71,5 +75,11 @@ public class PedidoHandlerResponseDto {
     public List<ComboPedidoHandlerResponseDto> getCombos() {
         return combos;
     }
+
+    public String getIdTransacaoPagamento() {
+        return idTransacaoPagamento;
+    }
+
+    
 
 }

@@ -139,7 +139,8 @@ public class PedidoDatabaseRepositoryImpl extends DatabaseDataRepository impleme
         }
 
         return new Pedido(savedEntity.getId(), cliente, savedEntity.getDataHora(), savedEntity.getStatus().name(),
-                                savedEntity.getStatusPgto().name(), produtos);
+                                savedEntity.getStatusPgto().name(), produtos)
+                                .setIdTransacaoPagamento(savedEntity.getIdTransacaoPagamento());
     }
 
     private PedidoEntity getEntityFromPedido(Pedido pedido) {
@@ -178,6 +179,7 @@ public class PedidoDatabaseRepositoryImpl extends DatabaseDataRepository impleme
                         .statusPgto(pedido.getStatusPgto())
                         .cliente(cliente)
                         .produtos(produtos)
+                        .idTransacaoPagamento(pedido.getIdTransacaoPagamento())
                         .build();
     }
 

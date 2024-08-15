@@ -3,6 +3,7 @@ package br.com.fiap.soat7.grupo18.lanchonete.external.handler.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +19,14 @@ import br.com.fiap.soat7.grupo18.lanchonete.core.usecase.ClienteUseCase;
 import br.com.fiap.soat7.grupo18.lanchonete.core.usecase.ProdutoUseCase;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.PedidoHandlerRequestDto;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.PedidoHandlerResponseDto;
+import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.MercadoPagoPagamentoGateway;
+import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.MockPagamentoGateway;
 
 @Service
 public class PedidoRestService {
+
+    @Value("${app.payment.gateway}")
+    private String gatewayPagamento;
 
     private final ClienteUseCase clienteUseCase;
     private final ProdutoUseCase produtoUseCase;
@@ -40,7 +46,9 @@ public class PedidoRestService {
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public PedidoHandlerResponseDto save(PedidoHandlerRequestDto pedidoDto) {
-        return pedidoController.save(pedidoDto, produtoUseCase, clienteUseCase);
+        final var mercadoPagoGateway = "mercadopago";
+        var pgtoGateway = mercadoPagoGateway.equalsIgnoreCase(gatewayPagamento) ? new MercadoPagoPagamentoGateway() : new MockPagamentoGateway();
+        return pedidoController.save(pedidoDto, produtoUseCase, clienteUseCase, pgtoGateway);
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
