@@ -11,6 +11,7 @@ import br.com.fiap.soat7.grupo18.lanchonete.core.usecase.PedidoUseCase;
 import br.com.fiap.soat7.grupo18.lanchonete.core.usecase.ProdutoUseCase;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.PedidoHandlerRequestDto;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.PedidoHandlerResponseDto;
+import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.AbstractPagamentoGateway;
 
 public class PedidoController {
 
@@ -30,8 +31,9 @@ public class PedidoController {
         return PedidoPresenter.mapToDto(pedidoUseCase.findById(idPedido));
     }
 
-    public PedidoHandlerResponseDto save(PedidoHandlerRequestDto pedidoDto, ProdutoUseCase produtoUseCase, ClienteUseCase clienteUseCase) {
-        return PedidoPresenter.mapToDto(pedidoUseCase.save(pedidoDto, produtoUseCase, clienteUseCase));
+    public PedidoHandlerResponseDto save(PedidoHandlerRequestDto pedidoDto, ProdutoUseCase produtoUseCase, ClienteUseCase clienteUseCase,
+                                            AbstractPagamentoGateway pagamentoGateway) {
+        return PedidoPresenter.mapToDto(pedidoUseCase.save(pedidoDto, produtoUseCase, clienteUseCase, pagamentoGateway));
     }
 
     public void updateStatus(String idPedido, String novoStatusStr) {

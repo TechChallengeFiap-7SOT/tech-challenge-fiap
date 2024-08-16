@@ -1,14 +1,14 @@
 package br.com.fiap.soat7.grupo18.lanchonete.core.usecase;
 
-import br.com.fiap.soat7.grupo18.lanchonete.core.entity.AbstractPagamentoGateway;
 import br.com.fiap.soat7.grupo18.lanchonete.external.infra.exception.NotFoundEntityException;
+import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.AbstractPagamentoGateway;
 
 public class PaymentWebhookUseCase {
 
 
-    private final AbstractPagamentoGateway<?> pagamentoGateway;
+    private final AbstractPagamentoGateway pagamentoGateway;
 
-    public PaymentWebhookUseCase(AbstractPagamentoGateway<?> pagamentoGateway) {
+    public PaymentWebhookUseCase(AbstractPagamentoGateway pagamentoGateway) {
         this.pagamentoGateway = pagamentoGateway;
     }
 
@@ -17,8 +17,8 @@ public class PaymentWebhookUseCase {
         if (pedido == null){
             throw new NotFoundEntityException("Pedido não encontrado com o ID informado: " + idPedido);
         }
-
-        pedidoUseCase.updateStatusPgto(idPedido, pagamentoGateway.getStatusPgto().name(), pagamentoGateway.getIdTransacao());
+        //TODO corrigir isso, pq não existem mais tais métodos no pgtoGateway
+        pedidoUseCase.updateStatusPgto(idPedido, "pagamentoGateway.getStatusPgto().name()", "pagamentoGateway.getIdTransacao()");
     }
 
     

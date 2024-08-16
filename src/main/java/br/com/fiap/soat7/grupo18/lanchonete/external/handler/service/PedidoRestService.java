@@ -3,6 +3,7 @@ package br.com.fiap.soat7.grupo18.lanchonete.external.handler.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,20 +19,27 @@ import br.com.fiap.soat7.grupo18.lanchonete.core.usecase.ClienteUseCase;
 import br.com.fiap.soat7.grupo18.lanchonete.core.usecase.ProdutoUseCase;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.PedidoHandlerRequestDto;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.PedidoHandlerResponseDto;
+import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.AbstractPagamentoGateway;
 
 @Service
 public class PedidoRestService {
 
+    @Value("${app.payment.gateway}")
+    private String gatewayPagamento;
+
     private final ClienteUseCase clienteUseCase;
     private final ProdutoUseCase produtoUseCase;
     private final PedidoController pedidoController;
+    private final AbstractPagamentoGateway pagamentoGateway;
     
     public PedidoRestService(@Qualifier("pedidoDatabaseRepository") PedidoDataRepository pedidoDataRepository,
                                 @Qualifier("clienteDatabaseRepository") ClienteDataRepository clienteRepository,
-                                @Qualifier("produtoDatabaseRepository") ProdutoDataRepository produtoRepository) {
+                                @Qualifier("produtoDatabaseRepository") ProdutoDataRepository produtoRepository,
+                                AbstractPagamentoGateway pagamentoGateway) {
         this.clienteUseCase = new ClienteUseCase(new ClienteGateway(clienteRepository));
         this.produtoUseCase = new ProdutoUseCase(new ProdutoGateway(produtoRepository));
         this.pedidoController = new PedidoController(pedidoDataRepository);
+        this.pagamentoGateway = pagamentoGateway;
     }
 
     public PedidoHandlerResponseDto findById(String idPedido) {
@@ -40,7 +48,7 @@ public class PedidoRestService {
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public PedidoHandlerResponseDto save(PedidoHandlerRequestDto pedidoDto) {
-        return pedidoController.save(pedidoDto, produtoUseCase, clienteUseCase);
+        return pedidoController.save(pedidoDto, produtoUseCase, clienteUseCase, pagamentoGateway);
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)

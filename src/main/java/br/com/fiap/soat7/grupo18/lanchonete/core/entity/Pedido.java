@@ -22,6 +22,8 @@ public class Pedido {
 
     private final BigDecimal valor;
 
+    private String idTransacaoPagamento;
+
     private final StatusPedidoType status;
 
     private final StatusPgtoType statusPgto;
@@ -86,7 +88,7 @@ public class Pedido {
      * @param statusPgto
      * @param produtos
      */
-    public Pedido(String id, LocalDateTime dataHora, BigDecimal valor, String status, String statusPgto,
+    public Pedido(String id, LocalDateTime dataHora, String status, String statusPgto,
                     List<ComboPedido> produtos) {
         this(id, null, dataHora, status, statusPgto, produtos);
     }
@@ -131,5 +133,16 @@ public class Pedido {
     public List<ComboPedido> getProdutos() {
         return Collections.unmodifiableList(produtos);
     }
+
+    public String getIdTransacaoPagamento() {
+        return idTransacaoPagamento;
+    }
+
+    public Pedido setIdTransacaoPagamento(String idTransacaoPagamento) {
+        this.idTransacaoPagamento = idTransacaoPagamento;
+        return this;
+    }
+
+    
     
 }

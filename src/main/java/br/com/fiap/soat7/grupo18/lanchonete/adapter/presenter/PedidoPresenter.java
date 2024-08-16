@@ -14,6 +14,8 @@ import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.PedidoHandlerRe
 
 public class PedidoPresenter {
 
+    private PedidoPresenter(){
+    }
 
     public static PedidoHandlerResponseDto mapToDto(Pedido pedido){
         return Optional.ofNullable(pedido)
@@ -35,7 +37,7 @@ public class PedidoPresenter {
                                 combos.add(combo);
                             }
                             return new PedidoHandlerResponseDto(p.getId(), p.getDataHora(), p.getValor(), p.getStatus(),
-                                p.getStatusPgto(), clienteDto, combos);
+                                p.getStatusPgto(), clienteDto, combos, pedido.getIdTransacaoPagamento());
                         })
                         .orElse(null);
     }

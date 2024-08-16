@@ -23,6 +23,8 @@ import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.ComboPedidoHand
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.PedidoHandlerRequestDto;
 import br.com.fiap.soat7.grupo18.lanchonete.external.infra.exception.DomainUseCaseException;
 import br.com.fiap.soat7.grupo18.lanchonete.external.infra.exception.NotFoundEntityException;
+import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.AbstractPagamentoGateway;
+import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.AbstractPagamentoGateway.PagamentoOrder;
 
 public class PedidoUseCase {
 
@@ -41,7 +43,8 @@ public class PedidoUseCase {
                         .orElseThrow(() -> new NotFoundEntityException("Pedido não localizado com o ID informado: " + idPedido));
     }
 
-    public Pedido save(PedidoHandlerRequestDto pedidoDto, ProdutoUseCase produtoUseCase, ClienteUseCase clienteUseCase) {
+    public Pedido save(PedidoHandlerRequestDto pedidoDto, ProdutoUseCase produtoUseCase, ClienteUseCase clienteUseCase,
+                    AbstractPagamentoGateway pagamentoGateway) {
         if (!Optional.ofNullable(pedidoDto).isPresent()){
             throw new DomainUseCaseException("Dados do pedido não enviados");
         }
@@ -60,8 +63,10 @@ public class PedidoUseCase {
         Pedido novoPedido = new Pedido(UUID.randomUUID().toString(), cliente, LocalDateTime.now(), StatusPedidoType.RECEBIDO.name(),
                                     StatusPgtoType.AGUARDANDO.name(), produtos);
 
+        var pgtoOrder = new PagamentoOrder(novoPedido.getId(), String.format("Pedido ID %s", novoPedido.getId()), novoPedido.getValor());
+        var qrCodeString = pagamentoGateway.geraRequisicaoPgto(pgtoOrder);
 
-        return pedidoGateway.save(novoPedido);
+        return pedidoGateway.save(novoPedido.setIdTransacaoPagamento(qrCodeString));
     }
 
     public void updateStatus(String idPedido, String novoStatusStr) {

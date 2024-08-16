@@ -1,7 +1,5 @@
 package br.com.fiap.soat7.grupo18.lanchonete.external.handler;
 
-import java.util.Map;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import br.com.fiap.soat7.grupo18.lanchonete.core.entity.AbstractPagamentoGateway;
-import br.com.fiap.soat7.grupo18.lanchonete.core.entity.MercadoPagoPagamentoGateway;
-import br.com.fiap.soat7.grupo18.lanchonete.core.entity.MockPagamentoGateway;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.service.PaymentWebhookRestService;
+import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.AbstractPagamentoGateway;
+import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.MercadoPagoPagamentoGateway;
+import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.MockPagamentoGateway;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,21 +34,22 @@ public class PaymentWebhookRestHandler {
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
     public ResponseEntity<String> handlePaymentWebhook(@RequestBody JsonNode notification, @PathVariable String gateway,
                                                                     @PathVariable String idPedido) {
-        AbstractPagamentoGateway<?> pagamentoGateway;
+        AbstractPagamentoGateway pagamentoGateway;
         switch (gateway.toUpperCase()) {
             case "MOCK":
-                pagamentoGateway = new MockPagamentoGateway(Map.of());
+                pagamentoGateway = new MockPagamentoGateway();
                 break;
 
             case "MERCADOPAGO":
-                pagamentoGateway = new MercadoPagoPagamentoGateway("Random string input");
+                pagamentoGateway = new MercadoPagoPagamentoGateway();
+                break;
         
             default:
                 return ResponseEntity.badRequest().body("Gateway de pagamento não reconhecido. Por momento informe 'MOCK' no path param");
         }
 
         paymentService.efetuaPagamentoPedido(idPedido, pagamentoGateway);
-
-        return ResponseEntity.ok().body("Status pgto: " + pagamentoGateway.getStatusPgto());
+        //TODO implementar isso
+        return ResponseEntity.ok().body("Status pgto: " + "pagamentoGateway.getStatusPgto()");
     }
 }
