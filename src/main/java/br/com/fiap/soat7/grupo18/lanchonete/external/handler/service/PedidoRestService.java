@@ -19,8 +19,7 @@ import br.com.fiap.soat7.grupo18.lanchonete.core.usecase.ClienteUseCase;
 import br.com.fiap.soat7.grupo18.lanchonete.core.usecase.ProdutoUseCase;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.PedidoHandlerRequestDto;
 import br.com.fiap.soat7.grupo18.lanchonete.external.handler.dto.PedidoHandlerResponseDto;
-import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.MercadoPagoPagamentoGateway;
-import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.MockPagamentoGateway;
+import br.com.fiap.soat7.grupo18.lanchonete.external.paymentgateway.AbstractPagamentoGateway;
 
 @Service
 public class PedidoRestService {
@@ -31,13 +30,16 @@ public class PedidoRestService {
     private final ClienteUseCase clienteUseCase;
     private final ProdutoUseCase produtoUseCase;
     private final PedidoController pedidoController;
+    private final AbstractPagamentoGateway pagamentoGateway;
     
     public PedidoRestService(@Qualifier("pedidoDatabaseRepository") PedidoDataRepository pedidoDataRepository,
                                 @Qualifier("clienteDatabaseRepository") ClienteDataRepository clienteRepository,
-                                @Qualifier("produtoDatabaseRepository") ProdutoDataRepository produtoRepository) {
+                                @Qualifier("produtoDatabaseRepository") ProdutoDataRepository produtoRepository,
+                                AbstractPagamentoGateway pagamentoGateway) {
         this.clienteUseCase = new ClienteUseCase(new ClienteGateway(clienteRepository));
         this.produtoUseCase = new ProdutoUseCase(new ProdutoGateway(produtoRepository));
         this.pedidoController = new PedidoController(pedidoDataRepository);
+        this.pagamentoGateway = pagamentoGateway;
     }
 
     public PedidoHandlerResponseDto findById(String idPedido) {
@@ -46,9 +48,7 @@ public class PedidoRestService {
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public PedidoHandlerResponseDto save(PedidoHandlerRequestDto pedidoDto) {
-        final var mercadoPagoGateway = "mercadopago";
-        var pgtoGateway = mercadoPagoGateway.equalsIgnoreCase(gatewayPagamento) ? new MercadoPagoPagamentoGateway() : new MockPagamentoGateway();
-        return pedidoController.save(pedidoDto, produtoUseCase, clienteUseCase, pgtoGateway);
+        return pedidoController.save(pedidoDto, produtoUseCase, clienteUseCase, pagamentoGateway);
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)

@@ -63,7 +63,7 @@ public class PedidoUseCase {
         Pedido novoPedido = new Pedido(UUID.randomUUID().toString(), cliente, LocalDateTime.now(), StatusPedidoType.RECEBIDO.name(),
                                     StatusPgtoType.AGUARDANDO.name(), produtos);
 
-        var pgtoOrder = new PagamentoOrder(novoPedido.getId(), String.format("Pedido ID: %s", novoPedido.getId()), novoPedido.getValor());
+        var pgtoOrder = new PagamentoOrder(novoPedido.getId(), String.format("Pedido ID %s", novoPedido.getId()), novoPedido.getValor());
         var qrCodeString = pagamentoGateway.geraRequisicaoPgto(pgtoOrder);
 
         return pedidoGateway.save(novoPedido.setIdTransacaoPagamento(qrCodeString));
