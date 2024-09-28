@@ -1,7 +1,9 @@
 name: pipeline
 
 on:
-  merge:
+  push:
+    branches:
+      - main
   
 jobs:
   unit-test:
