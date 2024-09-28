@@ -1,7 +1,7 @@
 name: pipeline
 
 on:
-  push:
+  merge:
   
 jobs:
   unit-test:
