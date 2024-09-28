@@ -37,7 +37,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: piovezan1207/techchallenger-lanchonete-app
+          images: ${{ secrets.DOCKER_USERNAME }}/techchallenger-lanchonete-app
 
       - name: Build and push Docker image
         id: push
@@ -47,5 +47,5 @@ jobs:
           file: ./Dockerfile
           push: true
           # tags: ${{ steps.meta.outputs.tags }}
-          tags: "latest"
+          tags: ${{ secrets.DOCKER_USERNAME }}/techchallenger-lanchonete-app:latest
           labels: ${{ steps.meta.outputs.labels }}
