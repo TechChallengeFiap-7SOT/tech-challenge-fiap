@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/lanchonete/v1/categorias")
-@Tag(name = "Categorias", description = "Categorias de produtos. !")
+@Tag(name = "Categorias", description = "Categorias de produtos.")
 public class CategoriaRestHandler {
 
     private CategoriaRestService categoriaService;
