@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - main
-  
+
+env:
+  REGION_DEFAULT: "us-east-1"
+  CLUSTER_NAME: "tech-challenge"
+
 jobs:
   unit-test:
     runs-on: ubuntu-latest
