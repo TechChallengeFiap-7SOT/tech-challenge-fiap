@@ -167,20 +167,30 @@ jobs:
         shell: bash
         run: |
           # sh 'src/main/scripts/testesFuncionais.sh'  
-          echo 'testeFuncionais'  
-          
+          echo 'testeFuncionais'
+
   deploy-Prod:
+    name: Deploy AWS Academy
     runs-on: ubuntu-latest
-    
-    if: github.ref == 'refs/heads/main'
-    environment:
-      name: prod
     needs: push_to_registry
     steps:
-      - name: Deploy 
-        shell: bash
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: AWS Configure
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ID }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.REGION_DEFAULT }}
+
+      - name: Update Kube Config
+        run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }} --region ${{ env.REGION_DEFAULT }}
+
+      - name: Kube Apply
         run: |
-          echo "Deploy PROD" 
+          kubectl rollout restart deployment lanchonete-deployment
   
   # deploy-azure:
   #   needs: push_to_registry  
