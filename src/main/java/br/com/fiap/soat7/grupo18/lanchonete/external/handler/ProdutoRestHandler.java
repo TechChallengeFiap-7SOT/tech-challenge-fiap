@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/lanchonete/v1/produtos")
-@Tag(name = "Produtos Agora podemos dormir mais tranquilos.", description = "Produtos Weeeee")
+@Tag(name = "Produtos.", description = "Produtos")
 public class ProdutoRestHandler {
 
     private ProdutoRestService produtoRestService;
