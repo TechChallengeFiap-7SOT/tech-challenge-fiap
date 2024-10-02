@@ -34,7 +34,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/lanchonete/v1/pedidos")
-@Tag(name = "Pedidos", description = "Pedidos de clientes")
+@Tag(name = "Pedidos - Demonstração Deploy", description = "Pedidos de clientes")
 public class PedidoRestHandler {
 
     private PedidoRestService pedidoService;
